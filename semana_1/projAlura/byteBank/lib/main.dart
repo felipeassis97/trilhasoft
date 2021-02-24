@@ -1,26 +1,39 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(Column(
+void main() => runApp(
+      MaterialApp(
+        home: Scaffold(
+          body: listaTransferencia(),
+          appBar: AppBar(
+            title: Text('Transferências'),
+          ),
+          floatingActionButton: FloatingActionButton(
+            child: Icon(Icons.add),
+          ),
+        ),
+      ),
+    );
+
+class listaTransferencia extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
       children: <Widget>[
-        Text(
-          'Texto 1',
-          textDirection: TextDirection.ltr,
+        Card(
+          child: ListTile(
+            leading: Icon(Icons.monetization_on),
+            title: Text('66.00'),
+            subtitle: Text('12538-45'),
+          ),
         ),
-        Text(
-          'Texto 2',
-          textDirection: TextDirection.ltr,
-        ),
-        Column(
-          children: <Widget>[
-            Text(
-              'Texto 3',
-              textDirection: TextDirection.ltr,
-            ),
-            Text(
-              'Texto 4',
-              textDirection: TextDirection.ltr,
-            ),
-          ],
+        Card(
+          child: ListTile(
+            leading: Icon(Icons.monetization_on),
+            title: Text('250.00'),
+            subtitle: Text('12538-45'),
+          ),
         ),
       ],
-    ));
+    );
+  }
+}
