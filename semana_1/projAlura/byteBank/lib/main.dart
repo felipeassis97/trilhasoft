@@ -1,5 +1,5 @@
+// ignore: avoid_web_libraries_in_flutter
 import 'dart:html';
-
 import 'package:flutter/material.dart';
 
 void main() => runApp(
@@ -20,11 +20,7 @@ class listaTransferencias extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: <Widget>[
-        itemTransferencia('984.00', '15845-45'),
-        itemTransferencia('114.00', '08524-00'),
-        itemTransferencia('289.00', '65987-24'),
-      ],
+      children: <Widget>[Text('1213')],
     );
   }
 }
