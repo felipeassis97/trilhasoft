@@ -20,7 +20,7 @@ class FormularioTransferencia extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Criando Transferencia'),
+        title: Text('Fazer Transferência'),
       ),
       body: Column(
         children: <Widget>[
@@ -29,12 +29,12 @@ class FormularioTransferencia extends StatelessWidget {
                 const EdgeInsets.all(16.0), //Espaço entre a borda e o input
             child: TextField(
               style: TextStyle(
-                fontSize: 24.0,
+                fontSize: 24.0, //Tamanho da fonte (Base 8)
               ),
               decoration: InputDecoration(
-                icon: Icon(Icons.house),
-                labelText: 'Número da Conta',
-                hintText: '0000 - 0',
+                icon: Icon(Icons.house), //Icone
+                labelText: 'Número da Conta', //Rótulo
+                hintText: '0000 - 0', //Dica
               ),
             ),
           ),
@@ -47,13 +47,16 @@ class FormularioTransferencia extends StatelessWidget {
               decoration: InputDecoration(
                 icon: Icon(Icons.monetization_on),
                 labelText: 'Valor',
-                hintText: '00.00',
+                hintText: '0.00',
               ),
               keyboardType: TextInputType.number, //Tipo do teclado
             ),
           ),
           RaisedButton(
             child: Text('Confirmar'),
+            onPressed: () {
+              print('Clicou');
+            },
           ),
         ],
       ),
