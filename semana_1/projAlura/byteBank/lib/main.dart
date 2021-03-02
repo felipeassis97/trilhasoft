@@ -121,4 +121,8 @@ class Transferencia {
   final int _numeroConta;
 
   Transferencia(this._valor, this._numeroConta);
+  @override
+  String toString() {
+    return 'Transferencia{valor: $_valor, numeroConta:$_numeroConta}';
+  }
 }
