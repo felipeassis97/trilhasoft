@@ -40,22 +40,20 @@ class FormularioTransferencia extends StatelessWidget {
           ),
           RaisedButton(
             child: Text('Confirmar'),
-            onPressed: () {
-              //Clique do botão
-              final int numeroConta =
-                  int.tryParse(_controladorCampoNumero.text);
-              final double valor =
-                  double.tryParse(_controladoraCampoValor.text);
-
-              if (numeroConta != null && valor != null) {
-                final transferenciaCriada = Transferencia(valor, numeroConta);
-                debugPrint('$transferenciaCriada');
-              }
-            },
+            onPressed: () => _criaTransferencia(),
           ),
         ],
       ),
     );
+  }
+
+  void _criaTransferencia() {
+    final int numeroConta = int.tryParse(_controladorCampoNumero.text);
+    final double valor = double.tryParse(_controladoraCampoValor.text);
+
+    if (numeroConta != null && valor != null) {
+      final transferenciaCriada = Transferencia(valor, numeroConta);
+    }
   }
 }
 
@@ -78,7 +76,8 @@ class Editor extends StatelessWidget {
           fontSize: 24.0, //Tamanho da fonte (Base 8)
         ),
         decoration: InputDecoration(
-          icon: Icon(icone), //Icone
+          icon: icone != null ? Icon(icone) : null,
+          //verifica se foi passado o icone..Se não for, não deixa espaço em branco no form
           labelText: rotulo, //Rótulo
           hintText: dica, //Dica
         ),
