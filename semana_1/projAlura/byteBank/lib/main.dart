@@ -1,12 +1,8 @@
-// ignore: avoid_web_libraries_in_flutter
-
-import 'dart:js';
-
 import 'package:flutter/material.dart';
 
-void main() => runApp(ByteBankApp());
+void main() => runApp(BytebankApp());
 
-class ByteBankApp extends StatelessWidget {
+class BytebankApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -18,44 +14,43 @@ class ByteBankApp extends StatelessWidget {
 }
 
 class FormularioTransferencia extends StatelessWidget {
-  final TextEditingController _controladorCampoNumero = TextEditingController();
-  final TextEditingController _controladoraCampoValor = TextEditingController();
+  final TextEditingController _controladorCampoNumeroConta =
+      TextEditingController();
+  final TextEditingController _controladorCampoValor = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Fazer Transferência'),
-      ),
-      body: Column(
-        children: <Widget>[
-          Editor(
-            controlador: _controladorCampoNumero,
-            dica: '0000',
-            rotulo: 'Número da Conta',
-          ),
-          Editor(
-            controlador: _controladoraCampoValor,
-            rotulo: 'Valor',
-            dica: '0.00',
-            icone: Icons.monetization_on,
-          ),
-          RaisedButton(
-            child: Text('Confirmar'),
-            onPressed: () => _criaTransferencia(context),
-          ),
-        ],
-      ),
-    );
+        appBar: AppBar(
+          title: Text('Criando Transferência'),
+        ),
+        body: Column(
+          children: <Widget>[
+            Editor(
+              controlador: _controladorCampoNumeroConta,
+              dica: '0000',
+              rotulo: 'Número da conta',
+            ),
+            Editor(
+              dica: '0.00',
+              controlador: _controladorCampoValor,
+              rotulo: 'Valor',
+              icone: Icons.monetization_on,
+            ),
+            RaisedButton(
+              child: Text('Confirmar'),
+              onPressed: () => _criaTransferencia(context),
+            )
+          ],
+        ));
   }
 
   void _criaTransferencia(BuildContext context) {
-    final int numeroConta = int.tryParse(_controladorCampoNumero.text);
-    final double valor = double.tryParse(_controladoraCampoValor.text);
-
+    final int numeroConta = int.tryParse(_controladorCampoNumeroConta.text);
+    final double valor = double.tryParse(_controladorCampoValor.text);
     if (numeroConta != null && valor != null) {
       final transferenciaCriada = Transferencia(valor, numeroConta);
-      debugPrint('Criou Transferencia');
+      debugPrint('Criando transferência');
       debugPrint('$transferenciaCriada');
       Navigator.pop(context, transferenciaCriada);
     }
@@ -68,42 +63,45 @@ class Editor extends StatelessWidget {
   final String dica;
   final IconData icone;
 
-  const Editor({this.controlador, this.rotulo, this.dica, this.icone});
-  //{Parametros opcionais}
+  Editor({this.controlador, this.rotulo, this.dica, this.icone});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(16.0), //Espaço entre a borda e o input
+      padding: const EdgeInsets.all(16.0),
       child: TextField(
         controller: controlador,
-        style: TextStyle(
-          fontSize: 24.0, //Tamanho da fonte (Base 8)
-        ),
+        style: TextStyle(fontSize: 24.0),
         decoration: InputDecoration(
           icon: icone != null ? Icon(icone) : null,
-          //verifica se foi passado o icone..Se não for, não deixa espaço em branco no form
-          labelText: rotulo, //Rótulo
-          hintText: dica, //Dica
+          labelText: rotulo,
+          hintText: dica,
         ),
+        keyboardType: TextInputType.number,
       ),
     );
   }
 }
 
 class ListaTransferencias extends StatelessWidget {
+  final List<Transferencia> _transferencias = List();
+
   @override
   Widget build(BuildContext context) {
+    _transferencias.add(Transferencia(100.0, 1000));
+    _transferencias.add(Transferencia(100.0, 1000));
+    _transferencias.add(Transferencia(100.0, 1000));
+    _transferencias.add(Transferencia(100.0, 1000));
     return Scaffold(
       appBar: AppBar(
         title: Text('Transferências'),
       ),
-      body: Column(
-        children: <Widget>[
-          ItemTransferencia(Transferencia(213.00, 1457659)),
-          ItemTransferencia(Transferencia(234.99, 987876)),
-          ItemTransferencia(Transferencia(23.34, 2344432))
-        ],
+      body: ListView.builder(
+        itemCount: _transferencias.length,
+        itemBuilder: (context, indice) {
+          final transferencia = _transferencias[indice];
+          return ItemTransferencia(transferencia);
+        },
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
@@ -113,8 +111,9 @@ class ListaTransferencias extends StatelessWidget {
             return FormularioTransferencia();
           }));
           future.then((transferenciaRecebida) {
-            debugPrint('Chegou no Then');
+            debugPrint('chegou no then do future');
             debugPrint('$transferenciaRecebida');
+            _transferencias.add(transferenciaRecebida);
           });
         },
       ),
@@ -130,22 +129,22 @@ class ItemTransferencia extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      child: ListTile(
-        leading: Icon(Icons.monetization_on),
-        title: Text(_transferencia._valor.toString()),
-        subtitle: Text(_transferencia._numeroConta.toString()),
-      ),
-    );
+        child: ListTile(
+      leading: Icon(Icons.monetization_on),
+      title: Text(_transferencia.valor.toString()),
+      subtitle: Text(_transferencia.numeroConta.toString()),
+    ));
   }
 }
 
 class Transferencia {
-  final double _valor;
-  final int _numeroConta;
+  final double valor;
+  final int numeroConta;
 
-  Transferencia(this._valor, this._numeroConta);
+  Transferencia(this.valor, this.numeroConta);
+
   @override
   String toString() {
-    return 'Transferencia{valor: $_valor, numeroConta:$_numeroConta}';
+    return 'Transferencia{valor: $valor, numeroConta: $numeroConta}';
   }
 }
