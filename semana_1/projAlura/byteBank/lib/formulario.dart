@@ -26,7 +26,7 @@ class FormularioTransferencia extends StatelessWidget {
               rotulo: 'Valor',
               icone: Icons.monetization_on,
             ),
-            RaisedButton(
+            TextButton(
               child: Text('Confirmar'),
               onPressed: () => _criaTransferencia(context),
             )
