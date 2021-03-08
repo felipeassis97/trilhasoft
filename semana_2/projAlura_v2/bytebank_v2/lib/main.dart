@@ -1,8 +1,15 @@
+import 'dart:js';
+
+import 'package:bytebank_v2/models/saldo.dart';
 import 'package:bytebank_v2/screens/dashboard/dashboard.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'screens/transferencia/transferencia.dart';
 
-void main() => runApp(BytebankAppV2());
+void main() => runApp(ChangeNotifierProvider(
+      create: (context) => Saldo(0),
+      child: BytebankAppV2(),
+    ));
 
 class BytebankAppV2 extends StatelessWidget {
   @override
