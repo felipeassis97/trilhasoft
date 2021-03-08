@@ -1,6 +1,6 @@
+import 'package:bytebank_v2/components/editor.dart';
+import 'package:bytebank_v2/models/transferencia.dart';
 import 'package:flutter/material.dart';
-import 'editor.dart';
-import 'transferencia.dart';
 
 class FormularioTransferencia extends StatelessWidget {
   final TextEditingController _controladorCampoNumeroConta =
