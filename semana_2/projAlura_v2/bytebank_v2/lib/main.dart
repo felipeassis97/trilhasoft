@@ -6,8 +6,8 @@ import 'package:provider/provider.dart';
 import 'screens/transferencia/transferencia.dart';
 
 void main() => runApp(ChangeNotifierProvider(
-      create: (context) => Saldo(0),
-      child: BytebankAppV2(),
+      create: (context) => Saldo(0), //Quem será monitorado
+      child: BytebankAppV2(), //Quem será notificado
     ));
 
 class BytebankAppV2 extends StatelessWidget {
